@@ -29,16 +29,21 @@ const downloadURI = (uri: string, name: string) => {
 };
 
 const onImageInputChange = async () => {
-    document.getElementById('input_div')?.classList.add('hide');
-    document.getElementById('loading_div')?.classList.remove('hide');
-
     const file = (document.getElementById('image_input') as HTMLInputElement).files![0];
-
     const fileExtensions: Record<string, string[]> = {
         'image/png': ['png'],
         'image/jpeg': ['jpg', 'jpeg'],
         'image/webp': ['webp']
     };
+    const imageOutDiv = document.getElementById('image_output') as HTMLImageElement;
+    if (fileExtensions[file.type] === undefined) {
+        imageOutDiv.innerText = 'unsupported file type';
+        return;
+    }
+
+    document.getElementById('input_div')?.classList.add('hide');
+    document.getElementById('loading_div')?.classList.remove('hide');
+
     const fileNameSegs = file.name.split('.');
     if (fileExtensions[file.type].includes(fileNameSegs[fileNameSegs.length - 1]))
         fileNameSegs.pop();
@@ -49,7 +54,6 @@ const onImageInputChange = async () => {
     const callTime = Date.now();
     const gifUrl = await callWorkerWithReturn('convertImage', await file.arrayBuffer(), fileName);
     console.log('Worker call took', (Date.now() - callTime) / 1000, 'seconds to complete');
-    const imageOutDiv = document.getElementById('image_output') as HTMLImageElement;
     if (gifUrl === null) {
         imageOutDiv.innerText = 'something went wrong while converting that image :(';
     } else {
