@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>give gif</title>
+
+        <style>
+            #input_div {
+                height: 100%;
+            }
+            #input_div form {
+                margin-bottom: 5px;
+            }
+            #image_output {
+                width: 100%;
+                height: calc(100vh - 80px);
+            }
+            #image_output img {
+                margin-top: 5px;
+                width: 100%;
+                height: 100%;
+                object-fit: scale-down;
+                object-position: left top;
+            }
+            .hide {
+                display: none;
+            }
+        </style>
+        <script type="module" src="index.ts"></script>
+    </head>
+
+    <body>
+        <div id="loading_div" class="hide">
+            converting image. for large images, this can take a few seconds longer than you would
+            expect.
+        </div>
+        <div id="input_div">
+            <form autocomplete="off">
+                <input
+                    type="file"
+                    id="image_input"
+                    name="image_input"
+                    accept="image/jpeg,image/png,image/webp"
+                />
+            </form>
+            <div id="image_output"></div>
+        </div>
+    </body>
+</html>

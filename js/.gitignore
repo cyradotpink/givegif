@@ -1,0 +1,6 @@
+/.parcel-cache
+/assets/givegif_wasm.wasm
+/dist
+/node_modules
+/build_dist
+/.wrangler
